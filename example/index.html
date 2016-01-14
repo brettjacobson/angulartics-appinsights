@@ -12,9 +12,16 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container">
+    <div class="container" ng-controller="testController">
       <div class="row">
-        <a class="btn btn-primary" analytics-on>Send Event</a>
+        <div class="col-xs-12">
+          <a class="btn btn-primary" analytics-on analytics-event="Custom Event">Send Event using Directive</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <a class="btn btn-primary" ng-click="sendEvent()">Send Event using Service</a>
+        </div>
       </div>
     </div>
     <script type="text/javascript">
@@ -28,9 +35,19 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="/bower_components/angulartics/dist/angulartics.min.js"></script>
-    <script src="/dist/angulartics-appinsights.min.js"></script>
+    <script src="/dist/angulartics-appinsights.js"></script>
     <script type="text/javascript">
-      angular.module('myApp', ['angulartics', 'angulartics.azure.appinsights']);
+      angular
+        .module('myApp', ['angulartics', 'angulartics.azure.appinsights'])
+        .run(function($analytics) {
+          $analytics.setUserProperties({ Username: 'testUser', PersonId: 3 });
+          $analytics.setUsername('testUser');
+        })
+        .controller('testController', function($scope, $analytics) {
+          $scope.sendEvent = function() {
+            $analytics.eventTrack('Another Custom Event', { myProp: 'testing' });
+          }
+        });
     </script>
   </body>
 </html>
