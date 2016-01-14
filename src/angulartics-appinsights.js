@@ -19,13 +19,18 @@
         });
 
         $analyticsProvider.registerSetUsername(function(name) {
-
+            appInsights.setAuthenticatedUserContext(name);
         });
 
         $analyticsProvider.registerSetUserProperties(function(properties) {
-          //            TODO    need to hook in this properties bag into AppInsights Telemetry Initializer
-          angular.forEach(properties, function(value, key) {
-            // newrelic.setCustomAttribute(key, value);
+          appInsights.queue.push(function () {
+            appInsights.context.addTelemetryInitializer(function (envelope) {
+              var telemetryItem = envelope.data.baseData;
+              telemetryItem.properties = telemetryItem.properties || {};
+              angular.forEach(properties, function(value, key) {
+                telemetryItem.properties[key] = value;
+              });
+            });
           });
         });
       });
