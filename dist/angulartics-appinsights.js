@@ -26,7 +26,6 @@
           appInsights.queue.push(function () {
             appInsights.context.addTelemetryInitializer(function (envelope) {
               var telemetryItem = envelope.data.baseData;
-
               telemetryItem.properties = telemetryItem.properties || {};
               angular.forEach(properties, function(value, key) {
                 telemetryItem.properties[key] = value;
