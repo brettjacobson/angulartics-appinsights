@@ -1,0 +1,25 @@
+{
+  "name": "angulartics-appinsights",
+  "description": "App Insights plugin for Angulartics",
+  "main": "gulpfile.js",
+  "authors": [
+    "Jacobson, Brett"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "app-insights",
+    "plugin",
+    "angulartics"
+  ],
+  "homepage": "https://github.com/brettjacobson/angulartics-appinsights",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "angulartics": "~1.0.3"
+  }
+}
